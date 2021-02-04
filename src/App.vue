@@ -1,18 +1,18 @@
 <template>
   <div id="app">
-    <oeuvre></oeuvre>
+    <navbar></navbar>
   </div>
 </template>
 
 <script>
-import Oeuvre from "./components/Oeuvre.vue";
+import navbar from "./components/NavBar2";
 import semantic from "semantic-ui-vue";
 
 export default {
   semantic,
   name: "App",
   components: {
-    Oeuvre,
+    navbar,
   },
 };
 </script>

@@ -1,14 +1,14 @@
 <template>
   <div class="ui container">
     <!-- form add new post -->
-    <h1 class="ui header">Oeuvres</h1>
+    <h1 class="ui header">Adherents</h1>
     <button class="ui positive basic button" v-on:click="addB = !addB">
-      Add Oeuvre
+      Add Adherent
     </button>
     <div v-if="addB">
       <form class="ui form">
         <sui-form-field>
-          <label>Titre :</label>
+          <label>Nom :</label>
           <input
             type="text"
             placeholder="Titre de l'oeuvre"
@@ -16,7 +16,7 @@
           />
         </sui-form-field>
         <sui-form-field>
-          <label>Auteur :</label>
+          <label>Prenom :</label>
           <input
             type="text"
             placeholder="Titre Auteur"
@@ -24,11 +24,11 @@
           />
         </sui-form-field>
         <sui-form-field>
-          <label>Editeur :</label>
+          <label>Email :</label>
           <input type="text" placeholder="editeur" v-model="oeuvre.editeur" />
         </sui-form-field>
         <sui-form-field>
-          <label>Année de sortie :</label>
+          <label>CIN :</label>
           <input
             type="text"
             placeholder="année de sortie"
@@ -50,12 +50,12 @@
         <!-- card -->
         <div class="ui fluid card">
           <div class="content">
-            <p class="header">{{ post.titre }}</p>
+            <p class="header">{{ post.nom }}</p>
             <div class="meta">
-              <span class="date">{{ post.auteur }}</span>
+              <span class="date">{{ post.prenom }}</span>
             </div>
             <div class="description">
-              {{ post.editeur }}
+              {{ post.email }}
             </div>
             <div class="description">
               <!-- {{ post.professeur.nom }} -->
@@ -68,8 +68,6 @@
             >
               Delete
             </button>
-          </div>
-          <div class="extra content">
             <button class="ui right floated blue button" @click="toggle(post)">
               Update
             </button>
@@ -85,12 +83,8 @@
             <label> {{ oeuvre.titre }} </label>
           </sui-form-field>
           <sui-form-field>
-            <label>Editeur :</label>
-            <input
-              type="text"
-              placeholder="editeur"
-              v-model="current_post.editeur"
-            />
+            <label>Nom :</label>
+            <input type="text" placeholder="nom" v-model="current_post.nom" />
           </sui-form-field>
           <sui-form-field>
             <label>Auteur :</label>
@@ -111,7 +105,7 @@
 
 <script>
 import axios from "axios";
-import Oeuvre from "../models/Oeuvre";
+import Oeuvre from "../models/Adherent";
 const url = "http://localhost:9090";
 export default {
   data() {
@@ -132,7 +126,7 @@ export default {
     },
     createOeuvre() {
       axios
-        .post(url + "/ajouterOeuvre", {
+        .post(url + "/ajouterAdherent", {
           id: this.oeuvre.id,
           titre: this.oeuvre.titre,
           auteur: this.oeuvre.auteur,
@@ -145,7 +139,7 @@ export default {
     },
     deleteOeuvre(id) {
       console.log(id);
-      axios.delete(url + "/deleteOeuvre/" + id).then(() => {
+      axios.post(url + "/deleteAdherent", { id: id }).then(() => {
         this.getOeuvre();
       });
     },
@@ -156,8 +150,8 @@ export default {
     },
     updateOeuvre() {
       // eslint-disable-next-line no-console
-      console.log(url + "/update", this.current_post);
-      axios.post(url + "/update", this.current_post).then(() => {
+      console.log(url + "/updateAdherent", this.current_post);
+      axios.post(url + "/updateAdheren", this.current_post).then(() => {
         this.toggle({});
         this.getOeuvre();
       });
